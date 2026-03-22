@@ -11,7 +11,7 @@ services:
       - key: JWT_SECRET
         value: vigility_super_secret_jwt_key_2024
       - key: FRONTEND_URL
-        value: https://placeholder.netlify.app
+        value: https://product-tracking-dashboard.netlify.app
       - key: DATABASE_URL
         fromDatabase:
           name: vigility-db
