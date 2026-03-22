@@ -1,8 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import {
-  buildWhereClause,
-  groupClicksByDate,
-} from "../utils/analytics.utils.js";
+import { buildWhereClause, groupClicksByDate, } from "../utils/analytics.utils.js";
 
 const prisma = new PrismaClient();
 

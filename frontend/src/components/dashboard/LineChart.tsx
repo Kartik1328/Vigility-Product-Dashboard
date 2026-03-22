@@ -1,13 +1,35 @@
+import { useRef } from "react";
 import { LineChart as ReLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts";
 import { LineChartData } from "../../types";
 import { useFilterStore } from "../../store/filterStore";
+import api from "../../api/axios";
 
 interface Props {
   data: LineChartData[];
 }
 
+const track = async (feature_name: string) => {
+  try {
+    await api.post("/track", { feature_name });
+  } catch {
+    // silent fail
+  }
+};
+
 const LineChart = ({ data }: Props) => {
   const { selectedFeature } = useFilterStore();
+  const hoverTracked = useRef(false);
+
+  const handleMouseEnter = () => {
+    if (!hoverTracked.current) {
+      hoverTracked.current = true;
+      track("line_chart_hover");
+    }
+  };
+
+  const handleMouseLeave = () => {
+    hoverTracked.current = false;
+  };
 
   return (
     <div className="bg-white rounded-xl shadow p-5">
@@ -29,6 +51,8 @@ const LineChart = ({ data }: Props) => {
           <ReLineChart
             data={data}
             margin={{ top: 0, right: 20, left: 0, bottom: 0 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis

@@ -38,7 +38,7 @@ async function main() {
     users.push(user);
   }
 
-  console.log(`✅ Created ${users.length} users`);
+  console.log(`Created ${users.length} users`);
 
   const clickData = [];
   for (let i = 0; i < 150; i++) {
@@ -62,9 +62,9 @@ async function main() {
 
   await prisma.featureClick.createMany({ data: clickData });
 
-  console.log(`✅ Created 150 feature click events`);
-  console.log("🎉 Seeding complete!");
-  console.log("\n📋 Test credentials (any of these work):");
+  console.log(`Created 150 feature click events`);
+  console.log("Seeding complete!");
+  console.log("\n Test credentials (any of these work):");
   users.slice(0, 3).forEach((u) => {
     console.log(`   username: ${u.username}  |  password: password123`);
   });
@@ -72,7 +72,7 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error("❌ Seed failed:", e);
+    console.error("Seed failed:", e);
     process.exit(1);
   })
   .finally(async () => {

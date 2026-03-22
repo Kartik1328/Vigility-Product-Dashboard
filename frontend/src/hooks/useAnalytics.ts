@@ -27,7 +27,9 @@ const useAnalytics = () => {
       setBarChart(res.data.data.barChart);
       setLineChart(res.data.data.lineChart);
     } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to fetch analytics");
+      const data = err.response?.data;
+      const specificMsg = data?.errors?.[0]?.message;
+      setError(specificMsg || data?.message || "Failed to fetch analytics");
     } finally {
       setLoading(false);
     }

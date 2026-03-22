@@ -1,4 +1,4 @@
-import { BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, } from "recharts";
+import { BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Brush, } from "recharts";
 import { BarChartData } from "../../types";
 import { useFilterStore } from "../../store/filterStore";
 import api from "../../api/axios";
@@ -30,6 +30,10 @@ const handleBarClick = (entry: any) => {
   }
 };
 
+const handleBrushChange = () => {
+  track("bar_chart_zoom");
+};
+
   return (
     <div className="bg-white rounded-xl shadow p-5">
       <h2 className="text-base font-semibold text-gray-700 mb-4">
@@ -55,6 +59,7 @@ const handleBarClick = (entry: any) => {
               width={120}
             />
             <Tooltip formatter={(value: any) => [`${value} clicks`, "Count"]} />
+            <Brush dataKey="feature_name" height={20} stroke="#3b82f6" onChange={handleBrushChange} />
             <Bar
               dataKey="total_clicks"
               radius={[0, 4, 4, 0]}
